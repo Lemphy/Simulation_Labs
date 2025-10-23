@@ -120,6 +120,23 @@ end
 </pre>
 Ця невелика, але постійна добавка до катаболічних гормонів буде симулювати хронічний стрес, ускладнюючи чистий приріст маси.
 
+**Додати рівень якості сну**
+
+Також було додано параметр якості сну, додано слайдер **sleep-quality** з діапазоном 1-100%. У реальному житті сон не завжди буває ідеальним, можуть бути зовнішні фактори, які його можуть порушити.
+Було дороблено процедуру **sleep**
+<pre>
+to sleep
+  let current-sleep actual-hours-of-sleep
+  let sleep-effectivnes (sleep-quality / 100)
+  ;; simulate hormonal effect of sleeping
+  ask patches [
+    set catabolic-hormone catabolic-hormone - 0.5 * (log catabolic-hormone 10) * current-sleep * sleep-effectivnes
+    set anabolic-hormone anabolic-hormone - 0.48 * (log anabolic-hormone 10) * current-sleep * sleep-effectivnes
+  ]
+end
+</pre> 
+Тепер, якщо якість сну буде 100%, то відновлення буде відбуватися з повною силою, якщо ж 50% то ефект відновлення за ту саму кількість годин сну буде вдвічі меншим.
+
 ![Скріншот моделі в процесі симуляції](nlogo.png)
 
 Фінальний код моделі та її інтерфейс доступні за [посиланням](lb2.nlogox)
